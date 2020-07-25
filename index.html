@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 插值 -->
+        <p>{{title}}</p>
+        <p v-text='title'></p>
+        <p>整数：{{  integer  }}</p>
+        <p>
+            {{symbol.float}}
+        </p>
+        <!-- 双向绑定 -->
+        <input v-model='title' type="text"></input>
+        <!-- 事件处理 -->
+        <button @click='changeTitle'>改变title</button>
+
+        <br>
+        <p>ps: {{symbol.title1}}</p>
+        <input v-model='symbol.title1' type="text"></input>
+
+        <!-- HTML内容解析 -->
+        <div v-html='html'></div>
+        <div v-html='symbol.html1'></div>
+    </div>
+    <script src="vue.js"></script>
+    <script src="compile.js"></script>
+    <script src="observer.js"></script>
+    <script src="watcher.js"></script>
+    <script src="dep.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data:{
+                title: '我是标题',
+                integer: 100,
+                html: '<button>我是一个按钮</button>',
+                symbol:{
+                    title1: '我是嵌套数据的标题',
+                    float: 3.14,
+                    html1:'<button>我是嵌套数据的按钮</button>',
+                }
+            },
+            created(){
+                console.log('created 调用了');
+                setTimeout(()=>{
+                    this.title = '1秒后，我是title'
+                },1000);
+            },
+            methods:{
+                changeTitle(title){
+                    this.title = '我是改变后的title';
+                    //this.integer = 49;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
